@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/10/10 17:20:26 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:38:12 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,30 @@
 
 char	*get_next_line(int fd)
 {
-	static char		*buffer;
-	int				bytes;
-	static int		i = 0;
-	int				j;
-	char			*str;
+	static char		buffer[BUFFER_SIZE];
+	int				i;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (NULL);
-	j = 0;
-	str = malloc((BUFFER_SIZE) * sizeof(char));
-	bytes = read(fd, buffer, BUFFER_SIZE);
-	while (buffer[i] != '\n' && buffer[i] != '\0')
+	i = 0;
+	if (!buffer[i])
+		read(fd, buffer, BUFFER_SIZE);
+	while (buffer[i] != '\n')
 	{
-		printf("");
+		if (!buffer[i]){
+			read(fd, buffer, BUFFER_SIZE);
+			i = 0;
+		}
 		i++;
-		j++;
+		
 	}
-	if (buffer[i] == '\n')
-		str[j++] = buffer[i++];
-	return (str);
+
+	return (buffer);
 }
 
 int	main(void)
 {
 	int	file;
-
 	file = open("test.txt", O_RDONLY);
 	for (int i = 0; i< 3; i++)
-	{
-		printf("\nText: %s", get_next_line(file));
-		printf("\n");
-	}
+		printf("%s", get_next_line(file));
 	return (0);
 }
