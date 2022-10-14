@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/10/14 18:28:43 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/10/14 19:20:14 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	str = calloc(BUFFER_SIZE, sizeof(char));
 	i = 0;
 	j = 0;
-	if (!buffer[i])
+	if (!buffer[i] || buffer[i] == 10)
 		read(fd, buffer, BUFFER_SIZE);
-	while (buffer[i] != '\n') //todo: vover el puntero del buffer hasta el \n
+	str = expand_str("");
+	while (1) // todo: vover el puntero del buffer hasta el \n
 	{
 		if (!buffer[i])
 		{
@@ -60,9 +60,12 @@ char	*get_next_line(int fd)
 			i = 0;
 		}
 		str[j] = buffer[i];
+		if (buffer[i] == '\n')
+			break ;
 		i++;
 		j++;
 	}
+	*buffer=buffer[i];
 	//printf("%zu",ft_strlen(str));
 	return (str);
 }
@@ -71,8 +74,8 @@ int	main(void)
 {
 	int	file;
 	file = open("test.txt", O_RDONLY);
-	for (int i = 0; i< 1; i++)
-		printf("\n%s", get_next_line(file));
+	for (int i = 0; i< 3; i++)
+		printf("%s", get_next_line(file));
 		//get_next_line(file);
 	return (0);
 }
