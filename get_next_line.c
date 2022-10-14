@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/10/13 20:16:19 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/10/13 21:19:16 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,7 @@ static char	*str_space(char *str)
 	char	*new_str;
 	int		len;
 
-	len = 0;
-	if (*str != '\0')
-	{
-		len = ft_strlen(str);
-	}
+	len = ft_strlen(str);
 
 	new_str = malloc((BUFFER_SIZE + len) * sizeof(char));
 	return (new_str);
@@ -47,22 +43,24 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	str = NULL;
+	str = "";
 	
-	//str = str_space(str);
+	str = str_space(str);
 	i = 0;
 	j = 0;
 	if (!buffer[i])
 		read(fd, buffer, BUFFER_SIZE);
-	while (buffer[i] != '\n')
+	while (buffer[i] != '\n') //todo: vover el puntero del buffer hasta el \n
 	{
 		if (!buffer[i])
 		{
 			read(fd, buffer, BUFFER_SIZE);
-			//str = str_space(str);
+			str = str_space(str);
 			i = 0;
 		}
+		printf("%c", buffer[i]);
 		i++;
+		str[j] = buffer[i];
 	}
 	return (str);
 }
@@ -72,6 +70,6 @@ int	main(void)
 	int	file;
 	file = open("test.txt", O_RDONLY);
 	for (int i = 0; i< 3; i++)
-		printf("%s", get_next_line(file));
+		printf("\n%s", get_next_line(file));
 	return (0);
 }
