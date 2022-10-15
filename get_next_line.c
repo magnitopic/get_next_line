@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/10/15 16:51:34 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/10/15 19:46:23 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,42 +40,43 @@ static char	*expand_str(char *str)
 char	*get_next_line(int fd)
 {
 	static char		buffer[BUFFER_SIZE];
-	int				i;
+	static int		i;
 	int				j;
 	char			*str;
 	int				len;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	i = 0;
 	j = 0;
-	if (!buffer[i] || buffer[i] == 10)
+	if (!buffer[i])
+	{
 		len = read(fd, buffer, BUFFER_SIZE);
+		i = 0;
+	}
 	str = expand_str("");
-	while (1) // todo: vover el puntero del buffer hasta el \n
+	while (1)
 	{
 		if (!buffer[i])
 		{
 			len = read(fd, buffer, BUFFER_SIZE);
-			str = expand_str(str);
 			i = 0;
+			str = expand_str(str);
 		}
-		str[j] = buffer[i];
-		if (buffer[i] == '\n' || len == 0)
-			break ;
+		if (len > 0) // todo: cut off end of last string
+			str[j] = buffer[i];
 		i++;
 		j++;
+		if (buffer[i] == '\n' || len == 0)
+			break ;
 	}
-	*buffer=buffer[i];
-	//printf("%zu",ft_strlen(str));
 	return (str);
 }
 
 int	main(void)
 {
 	int	file;
-	file = open("test.txt", O_RDONLY);
-	for (int i = 0; i< 3; i++)
+	file = open("get_next_line.c", O_RDONLY);
+	for (int i = 0; i < 83; i++)
 		printf("%s", get_next_line(file));
 		//get_next_line(file);
 	return (0);
