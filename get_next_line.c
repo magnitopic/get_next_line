@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/10/14 19:20:14 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/10/15 16:51:34 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,25 @@ char	*get_next_line(int fd)
 	int				i;
 	int				j;
 	char			*str;
+	int				len;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	i = 0;
 	j = 0;
 	if (!buffer[i] || buffer[i] == 10)
-		read(fd, buffer, BUFFER_SIZE);
+		len = read(fd, buffer, BUFFER_SIZE);
 	str = expand_str("");
 	while (1) // todo: vover el puntero del buffer hasta el \n
 	{
 		if (!buffer[i])
 		{
-			read(fd, buffer, BUFFER_SIZE);
+			len = read(fd, buffer, BUFFER_SIZE);
 			str = expand_str(str);
 			i = 0;
 		}
 		str[j] = buffer[i];
-		if (buffer[i] == '\n')
+		if (buffer[i] == '\n' || len == 0)
 			break ;
 		i++;
 		j++;
