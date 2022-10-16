@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/10/15 19:46:23 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/10/16 13:03:48 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static char	*expand_str(char *str)
 		new_str[len - 1] = str[len - 1];
 		len--;
 	}
+	free(str);
 	return (new_str);
 }
 
@@ -48,21 +49,17 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	j = 0;
-	if (!buffer[i])
-	{
-		len = read(fd, buffer, BUFFER_SIZE);
-		i = 0;
-	}
-	str = expand_str("");
+	str = malloc(BUFFER_SIZE * sizeof(char));
 	while (1)
 	{
 		if (!buffer[i])
 		{
 			len = read(fd, buffer, BUFFER_SIZE);
+			printf("%d", len);
 			i = 0;
 			str = expand_str(str);
 		}
-		if (len > 0) // todo: cut off end of last string
+		if (len > 0)
 			str[j] = buffer[i];
 		i++;
 		j++;
@@ -75,8 +72,8 @@ char	*get_next_line(int fd)
 int	main(void)
 {
 	int	file;
-	file = open("get_next_line.c", O_RDONLY);
-	for (int i = 0; i < 83; i++)
+	file = open("test.txt", O_RDONLY);
+	for (int i = 0; i < 3; i++)
 		printf("%s", get_next_line(file));
 		//get_next_line(file);
 	return (0);
