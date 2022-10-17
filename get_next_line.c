@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/10/17 14:28:54 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:12:13 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,14 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
+	if (!buffer[i])
+	{
+		len = read(fd, buffer, BUFFER_SIZE);
+		i = 0;
+	}
 	j = 0;
 	str = calloc((BUFFER_SIZE + 1), sizeof(char));
-	while (1)
+	while (buffer[i] != '\n' && len >= i)
 	{
 		if (!buffer[i])
 		{
@@ -58,13 +63,11 @@ char	*get_next_line(int fd)
 			i = 0;
 			str = expand_str(str);
 		}
-		if (len > 0)
-			str[j] = buffer[i];
-		if (buffer[i] == '\n' || len == 0)
-			break ;
+		str[j] = buffer[i];
 		j++;
 		i++;
 	}
+	str[j] = buffer[i];
 	i++;
 	return (str);
 }
