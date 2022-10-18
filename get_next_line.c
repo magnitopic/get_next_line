@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/10/17 20:19:45 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:40:54 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	expand_buffer(int fd, char *buffer)
 	int		i;
 
 	aux = buffer;
-	*buffer = (char *) malloc(BUFFER_SIZE * sizeof(char));
+	buffer = (char *) malloc(BUFFER_SIZE * sizeof(char));
 	len = read(fd, aux, BUFFER_SIZE);
 	i = len;
 	while (i--)
@@ -66,7 +66,7 @@ char	*get_next_line(int fd)
 		return (0);
 	if (!buffer[i])
 	{
-		expand_buffer(fd, buffer);
+		len = expand_buffer(fd, buffer);
 		i = 0;
 	}
 	j = 0;
@@ -75,7 +75,7 @@ char	*get_next_line(int fd)
 	{
 		if (!buffer[i])
 		{
-			expand_buffer(fd, buffer);
+			len = expand_buffer(fd, buffer);
 			/* if (len == 0)
 			{
 				free(buffer);
