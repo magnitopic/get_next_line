@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/10/18 13:40:54 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/10/19 10:41:17 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,34 @@ size_t	ft_strlen(const char *s)
 	while (s[i] != '\0')
 		i++;
 	return (i);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*str;
+	int		a;
+	int		b;
+	int		i;
+
+	if (!s1 || !s2)
+		return (NULL);
+	a = ft_strlen(s1);
+	b = ft_strlen(s2);
+	i = 0;
+	str = malloc(a + b + 1);
+	if (!str)
+		return (NULL);
+	while (a--)
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	a = i;
+	i = 0;
+	while (b--)
+		str[a++] = s2[i++];
+	str[a] = '\0';
+	return (str);
 }
 
 static int	expand_buffer(int fd, char *buffer)
@@ -40,17 +68,11 @@ static int	expand_buffer(int fd, char *buffer)
 static char	*expand_str(char *str)
 {
 	char	*new_str;
-	int		len;
+	char	*aux;
 
-	len = ft_strlen(str);
-	new_str = malloc((BUFFER_SIZE + len + 1) * sizeof(char));
-	while (len != 0)
-	{
-		new_str[len - 1] = str[len - 1];
-		len--;
-	}
+	aux = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	new_str = ft_strjoin(str, aux);
 	free(str);
-	new_str[BUFFER_SIZE] = 0;
 	return (new_str);
 }
 
