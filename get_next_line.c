@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/10/19 10:41:17 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/10/19 18:04:45 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,8 @@ char	*get_next_line(int fd)
 		if (!buffer[i])
 		{
 			len = expand_buffer(fd, buffer);
-			/* if (len == 0)
-			{
-				free(buffer);
+			if (len == 0)
 				break ;
-			} */
 			i = 0;
 			str = expand_str(str);
 		}
