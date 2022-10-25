@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:38:04 by alaparic          #+#    #+#             */
-/*   Updated: 2022/10/24 15:55:41 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/10/25 09:42:44 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,49 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		str[a++] = s2[i++];
 	str[a] = '\0';
 	return (str);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	str = (char *)s;
+	while (str[i] != (unsigned char)c)
+	{
+		if (str[i] == '\0')
+			return (0);
+		i++;
+	}
+	return (&str[i]);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	char	*a;
+	size_t	i;
+
+	a = s;
+	i = 0;
+	while (i < n)
+	{
+		*a++ = '\0';
+		i++;
+	}
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
+	size_t	aux;
+
+	aux = count * size;
+	if (aux == 1 && count != 1)
+		return (NULL);
+	ptr = malloc(aux);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, count * size);
+	return (ptr);
 }
