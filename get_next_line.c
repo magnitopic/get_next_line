@@ -6,24 +6,40 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/10/25 09:44:52 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:39:10 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int	expand_buffer(int fd, char *buffer)
+static char	*join_buffer(char *buffer, char *new_str)
+{
+	
+}
+
+static char	*expand_buffer(int fd, char *buffer)
 {
 	char	*aux;
 	int		len;
-	int		i;
 
-	aux = buffer;
+	if (!buffer)
+		buffer = ft_calloc(1, 1);
+	aux = calloc((BUFFER_SIZE + 1), sizeof(char));
+	len = 1;
+	while (len != 0)
+	{
+		len = read(fd, aux, BUFFER_SIZE);
+		aux[len] = '\0';
+		buffer = ;
+		if (ft_strchr(aux,'\n') != NULL)
+			break ;
+	}
+	aux = "";
+	free(buffer);
 	buffer = (char *) malloc(BUFFER_SIZE * sizeof(char));
 	len = read(fd, aux, BUFFER_SIZE);
-	i = len;
-	while (i--)
-		buffer[i] = aux[i];
+	buffer = ft_strjoin(aux, buffer);
+	free(aux);
 	return (len);
 }
 
@@ -40,38 +56,13 @@ static char	*expand_str(char *str)
 
 char	*get_next_line(int fd)
 {
-	static char		buffer[BUFFER_SIZE];
-	static int		i;
-	int				j;
+	static char		*buffer;
 	char			*str;
 	int				len;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (0);
-	if (!buffer[i])
-	{
-		len = expand_buffer(fd, buffer);
-		i = 0;
-	}
-	j = 0;
-	str = calloc((BUFFER_SIZE + 1), sizeof(char));
-	while (buffer[i] != '\n' && len != 0)
-	{
-		if (!buffer[i])
-		{
-			len = expand_buffer(fd, buffer);
-			if (len == 0)
-				break ;
-			i = 0;
-			str = expand_str(str);
-		}
-		str[j] = buffer[i];
-		j++;
-		i++;
-	}
-	str[j] = buffer[i];
-	//printf("%d",buffer[i]);
-	i++;
+	buffer=expand_buffer();
 	return (str);
 }
 
