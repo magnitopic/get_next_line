@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/01 16:42:51 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/01 22:25:37 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,39 @@ static char	*read_line(int fd, char *buffer)
 	return (buffer);
 }
 
+static char	*coppy_to_str(char *buffer)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	while (buffer[i] != '\n')
+		i++;
+	str = ft_calloc(i, sizeof(char));
+	i++;
+	while (i-- != 0)
+		str[i] = buffer[i];
+	return (str);
+}
+
 char	*get_next_line(int fd)
 {
-	static char		*buffer;
-	/* char			*str; */
+	static char	*buffer;
+	char		*str;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (0);
 	buffer = read_line(fd, buffer);
-	printf("%s", buffer);
-	return (NULL);
+	str = coppy_to_str(buffer);
+	return (str);
 }
 
 int	main(void)
 {
 	int	file;
 	file = open("test.txt", O_RDONLY);
-	for (int i = 0; i < 1; i++)
-		//printf("%s", get_next_line(file));
-		get_next_line(file);
+	for (int i = 0; i < 2; i++)
+		printf("%s", get_next_line(file));
+		//get_next_line(file);
 	return (0);
 }
