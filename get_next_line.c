@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/10/27 20:09:57 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/01 13:51:58 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,16 @@ static char	*expand_buffer(int fd, char *buffer)
 
 	if (!buffer)
 		buffer = ft_calloc(1, 1);
-	aux = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	len = 1;
 	while (len != 0)
 	{
+		aux = ft_calloc(BUFFER_SIZE, sizeof(char));
 		len = read(fd, aux, BUFFER_SIZE);
-		aux[len] = '\0';
+		printf("%s\n", aux);
 		buffer = join_buffer(buffer, aux);
 		if (ft_strchr(aux, '\n') != NULL)
 			break ;
 	}
-	aux = "";
-	buffer = (char *) malloc(BUFFER_SIZE * sizeof(char));
-	len = read(fd, aux, BUFFER_SIZE);
-	buffer = ft_strjoin(aux, buffer);
 	free(aux);
 	return (buffer);
 }
@@ -64,17 +60,17 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (0);
-	buffer=expand_buffer(fd, buffer);
+	buffer = expand_buffer(fd, buffer);
 	printf("%s", buffer);
-	return NULL;
+	return (NULL);
 }
 
 int	main(void)
 {
 	int	file;
 	file = open("test.txt", O_RDONLY);
-	for (int i = 0; i < 2; i++)
-		printf("%s", get_next_line(file));
-		//get_next_line(file);
+	for (int i = 0; i < 1; i++)
+		//printf("%s", get_next_line(file));
+		get_next_line(file);
 	return (0);
 }

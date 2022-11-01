@@ -6,13 +6,12 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:36:30 by alaparic          #+#    #+#             */
-/*   Updated: 2022/10/25 09:42:22 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/01 13:21:49 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-
 
 # include <unistd.h>
 # include <stdlib.h>
