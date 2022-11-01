@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/01 13:51:58 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/01 16:42:51 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*join_buffer(char *buffer, char *new_str)
 	return (aux);
 }
 
-static char	*expand_buffer(int fd, char *buffer)
+static char	*read_line(int fd, char *buffer)
 {
 	char	*aux;
 	int		len;
@@ -31,9 +31,8 @@ static char	*expand_buffer(int fd, char *buffer)
 	len = 1;
 	while (len != 0)
 	{
-		aux = ft_calloc(BUFFER_SIZE, sizeof(char));
+		aux = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 		len = read(fd, aux, BUFFER_SIZE);
-		printf("%s\n", aux);
 		buffer = join_buffer(buffer, aux);
 		if (ft_strchr(aux, '\n') != NULL)
 			break ;
@@ -42,17 +41,6 @@ static char	*expand_buffer(int fd, char *buffer)
 	return (buffer);
 }
 
-/* static char	*expand_str(char *str)
-{
-	char	*new_str;
-	char	*aux;
-
-	aux = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	new_str = ft_strjoin(str, aux);
-	free(str);
-	return (new_str);
-} */
-
 char	*get_next_line(int fd)
 {
 	static char		*buffer;
@@ -60,7 +48,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (0);
-	buffer = expand_buffer(fd, buffer);
+	buffer = read_line(fd, buffer);
 	printf("%s", buffer);
 	return (NULL);
 }
