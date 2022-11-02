@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/02 08:03:39 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/02 12:24:23 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,12 @@ static char	*set_buffer(char *buffer)
 	char	*str;
 	int		i;
 
-	i = -1;
-	aux = ft_memcpy('\n', buffer, ft_strlen(buffer));
+	aux = ft_memchr(buffer, '\n', ft_strlen(buffer));
+	str = ft_calloc(ft_strlen(aux), sizeof(char));
+	i = 0;
 	while (aux[i++] != '\0')
 		str[i] = aux[i];
+	free(buffer);
 	return (str);
 }
 
@@ -77,6 +79,8 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (0);
 	buffer = read_line(fd, buffer);
+	if (!buffer)
+		return (NULL);
 	str = coppy_to_str(buffer);
 	buffer = set_buffer(buffer);
 	return (str);

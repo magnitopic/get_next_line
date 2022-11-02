@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:38:04 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/02 07:55:20 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/02 12:06:08 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,19 +95,19 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	char	*ptr_const;
-	char	*dst_head;
+	unsigned int	i;
+	unsigned char	*mys;
 
-	if (!dst && !src)
-		return (dst);
-	ptr_const = (char *)src;
-	dst_head = dst;
-	while (n)
+	i = 0;
+	mys = (unsigned char *)s;
+	while (n > 0)
 	{
-		*dst_head++ = *ptr_const++;
+		if (mys[i] == (unsigned char)c)
+			return (&mys[i]);
+		i++;
 		n--;
 	}
-	return (dst);
+	return (0);
 }
