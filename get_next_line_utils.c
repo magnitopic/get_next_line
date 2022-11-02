@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:38:04 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/01 13:21:22 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/02 07:55:20 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,21 @@ void	*ft_calloc(size_t count, size_t size)
 		return (NULL);
 	ft_bzero(ptr, count * size);
 	return (ptr);
+}
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	char	*ptr_const;
+	char	*dst_head;
+
+	if (!dst && !src)
+		return (dst);
+	ptr_const = (char *)src;
+	dst_head = dst;
+	while (n)
+	{
+		*dst_head++ = *ptr_const++;
+		n--;
+	}
+	return (dst);
 }

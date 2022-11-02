@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/01 22:25:37 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/02 08:03:39 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,19 @@ static char	*coppy_to_str(char *buffer)
 	return (str);
 }
 
+static char	*set_buffer(char *buffer)
+{
+	char	*aux;
+	char	*str;
+	int		i;
+
+	i = -1;
+	aux = ft_memcpy('\n', buffer, ft_strlen(buffer));
+	while (aux[i++] != '\0')
+		str[i] = aux[i];
+	return (str);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*buffer;
@@ -65,6 +78,7 @@ char	*get_next_line(int fd)
 		return (0);
 	buffer = read_line(fd, buffer);
 	str = coppy_to_str(buffer);
+	buffer = set_buffer(buffer);
 	return (str);
 }
 
