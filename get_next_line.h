@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:36:30 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/02 11:56:40 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/02 17:50:35 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *s, int c);
 void	*ft_calloc(size_t count, size_t size);
+void	ft_bzero(void *s, size_t n);
 void	*ft_memchr(const void *s, int c, size_t n);
 char	*get_next_line(int fd);
 #endif

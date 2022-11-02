@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:38:04 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/02 12:06:08 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/02 17:57:08 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		b;
 	int		i;
 
-	if (!s1 || !s2)
+	if (!s1)
 		return (NULL);
+	if (!s2)
+		return ((char *)s1);
 	a = ft_strlen(s1);
 	b = ft_strlen(s2);
 	i = 0;
