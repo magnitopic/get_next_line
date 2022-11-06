@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/06 14:12:50 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/06 15:36:07 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ static char	*join_buffer(char *buffer, char *new_str)
 {
 	char	*aux;
 
-	aux = ft_strjoin(buffer, new_str);
+	if (!new_str)
+		aux = NULL;
+	else
+		aux = ft_strjoin(buffer, new_str);
 	free(buffer);
 	return (aux);
 }
@@ -84,7 +87,7 @@ char	*get_next_line(int fd)
 	char		*str;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (0);
+		return (NULL);
 	buffer = read_line(fd, buffer);
 	if (!buffer)
 		return (NULL);
@@ -93,12 +96,12 @@ char	*get_next_line(int fd)
 	return (str);
 }
 
-int	main(void)
+/* int	main(void)
 {
 	int	file;
 	file = open("test.txt", O_RDONLY);
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 1; i++)
 		printf("%s", get_next_line(file));
 		//get_next_line(file);
 	return (0);
-}
+} */
