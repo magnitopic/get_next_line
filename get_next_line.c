@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/02 18:41:23 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/06 13:16:54 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,15 @@ static char	*set_buffer(char *buffer)
 	int		i;
 
 	aux = ft_memchr(buffer, '\n', ft_strlen(buffer));
+	aux++;
 	if (!aux)
 	{
 		free(buffer);
 		return (NULL);
 	}
 	str = ft_calloc(ft_strlen(aux), sizeof(char));
-	i = 0;
-	while (aux[i++] != '\0')
+	i = -1;
+	while (i++ < (int) ft_strlen(str))
 		str[i] = aux[i];
 	free(buffer);
 	return (str);
