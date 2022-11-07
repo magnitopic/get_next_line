@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/06 15:36:07 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:38:11 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,19 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	buffer = read_line(fd, buffer);
-	if (!buffer)
+	if (buffer[0] == 0)
 		return (NULL);
 	str = coppy_to_str(buffer);
 	buffer = set_buffer(buffer);
 	return (str);
 }
 
-/* int	main(void)
+int	main(void)
 {
 	int	file;
 	file = open("test.txt", O_RDONLY);
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 9; i++)
 		printf("%s", get_next_line(file));
 		//get_next_line(file);
 	return (0);
-} */
+}
