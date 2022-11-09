@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/09 17:57:03 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/09 18:39:08 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,17 @@ static char	*read_line(int fd, char *buffer)
 	if (!buffer)
 		buffer = ft_calloc(1, 1);
 	len = 1;
-	aux = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
-	if (!aux)
-		return (NULL);
 	while (len != 0)
 	{
-		aux[0] = 0;
+		aux = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
+		if (!aux)
+			return (NULL);
 		len = read(fd, aux, BUFFER_SIZE);
 		buffer = join_buffer(buffer, aux);
-		if (!(ft_strchr(aux, '\n')))
-			break ;
+		if (ft_strchr(aux, '\n') != NULL)
+			len = 0;
+		free(aux);
 	}
-	free(aux);
 	return (buffer);
 }
 
@@ -102,7 +101,7 @@ char	*get_next_line(int fd)
 {
 	int	file;
 	file = open("test.txt", O_RDONLY);
-	for (int i = 0; i < 1; i++){
+	for (int i = 0; i < 3; i++){
 		char *cozas = get_next_line(file);
 		printf("%s", cozas);
 		free(cozas);
