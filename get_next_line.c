@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/08 18:08:52 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/09 17:57:03 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@ static char	*read_line(int fd, char *buffer)
 		buffer = ft_calloc(1, 1);
 	len = 1;
 	aux = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
+	if (!aux)
+		return (NULL);
 	while (len != 0)
 	{
-		ft_bzero(aux, BUFFER_SIZE + 1);
+		aux[0] = 0;
 		len = read(fd, aux, BUFFER_SIZE);
 		buffer = join_buffer(buffer, aux);
-		if (ft_strchr(aux, '\n') != NULL)
+		if (!(ft_strchr(aux, '\n')))
 			break ;
 	}
 	free(aux);
@@ -89,18 +91,18 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	buffer = read_line(fd, buffer);
-	if (buffer[0] == 0)
+	if (!*buffer)
 		return (NULL);
 	str = coppy_to_str(buffer);
 	buffer = set_buffer(buffer);
-	return (str);``
+	return (str);
 }
 
 /* int	main(void)
 {
 	int	file;
 	file = open("test.txt", O_RDONLY);
-	for (int i = 0; i < 3; i++){
+	for (int i = 0; i < 1; i++){
 		char *cozas = get_next_line(file);
 		printf("%s", cozas);
 		free(cozas);

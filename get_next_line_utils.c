@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:38:04 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/08 17:50:00 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/09 17:57:15 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,6 @@ char	*ft_strchr(const char *s, int c)
 		i++;
 	}
 	return (&str[i]);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	char	*a;
-	size_t	i;
-
-	a = s;
-	i = 0;
-	while (i < n)
-	{
-		*a++ = '\0';
-		i++;
-	}
 }
 
 void	*ft_calloc(size_t count, size_t size)
