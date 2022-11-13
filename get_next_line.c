@@ -54,7 +54,7 @@ static char	*copy_to_str(char *buffer)
 	i = 0;
 	while (buffer[i] != '\n' && buffer[i])
 		i++;
-	str = ft_calloc(i + 1, sizeof(char));
+	str = ft_calloc(i + 2, sizeof(char));
 	i++;
 	while (i-- != 0)
 		str[i] = buffer[i];
