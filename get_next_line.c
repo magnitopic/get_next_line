@@ -46,13 +46,13 @@ static char	*read_line(int fd, char *buffer)
 	return (buffer);
 }
 
-static char	*coppy_to_str(char *buffer)
+static char	*copy_to_str(char *buffer)
 {
 	char	*str;
 	int		i;
 
 	i = 0;
-	while (buffer[i] != '\n' && buffer[i] != '\0')
+	while (buffer[i] != '\n' && buffer[i])
 		i++;
 	str = ft_calloc(i + 1, sizeof(char));
 	i++;
@@ -74,7 +74,7 @@ static char	*set_buffer(char *buffer)
 		return (NULL);
 	}
 	aux++;
-	str = ft_calloc(ft_strlen(aux), sizeof(char));
+	str = ft_calloc(ft_strlen(aux) + 1, sizeof(char));
 	i = -1;
 	while (i++ < (int) ft_strlen(str))
 		str[i] = aux[i];
@@ -92,7 +92,7 @@ char	*get_next_line(int fd)
 	buffer = read_line(fd, buffer);
 	if (!*buffer)
 		return (NULL);
-	str = coppy_to_str(buffer);
+	str = copy_to_str(buffer);
 	buffer = set_buffer(buffer);
 	return (str);
 }
