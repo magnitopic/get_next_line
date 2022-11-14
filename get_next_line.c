@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:35:54 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/09 18:39:08 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/14 10:18:35 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static char	*copy_to_str(char *buffer)
 	int		i;
 
 	i = 0;
+	if (!buffer[i])
+		return (NULL);
 	while (buffer[i] != '\n' && buffer[i])
 		i++;
 	str = ft_calloc(i + 2, sizeof(char));
@@ -90,8 +92,6 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	buffer = read_line(fd, buffer);
-	if (!*buffer)
-		return (NULL);
 	str = copy_to_str(buffer);
 	buffer = set_buffer(buffer);
 	return (str);
