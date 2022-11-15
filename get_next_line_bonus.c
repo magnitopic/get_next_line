@@ -6,11 +6,11 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:57:55 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/15 16:54:38 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/15 18:48:45 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*join_buffer(char *buffer, char *new_str)
 {
