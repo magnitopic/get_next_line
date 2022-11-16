@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:57:55 by alaparic          #+#    #+#             */
-/*   Updated: 2022/11/15 18:48:45 by alaparic         ###   ########.fr       */
+/*   Updated: 2022/11/16 15:06:37 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ static char	*read_line(int fd, char *buffer)
 		point = aux;
 		while (*point)
 			*point++ = '\0';
-		if (!aux)
-			return (NULL);
 		len = read(fd, aux, BUFFER_SIZE);
 		buffer = join_buffer(buffer, aux);
 		if (ft_strchr(aux, '\n') != NULL)
